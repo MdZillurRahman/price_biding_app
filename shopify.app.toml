@@ -3,7 +3,7 @@
 client_id = "a6ceeaead5d4e2e19b7188d55b52e0c6"
 name = "price-biding-app"
 handle = "price-biding-app"
-application_url = "https://links-edges-videos-iron.trycloudflare.com"
+application_url = "https://regarding-cigarette-tough-fancy.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_locations,read_orders,read_products,read_shipping,write_locations
 
 [auth]
 redirect_urls = [
-  "https://links-edges-videos-iron.trycloudflare.com/auth/callback",
-  "https://links-edges-videos-iron.trycloudflare.com/auth/shopify/callback",
-  "https://links-edges-videos-iron.trycloudflare.com/api/auth/callback"
+  "https://regarding-cigarette-tough-fancy.trycloudflare.com/auth/callback",
+  "https://regarding-cigarette-tough-fancy.trycloudflare.com/auth/shopify/callback",
+  "https://regarding-cigarette-tough-fancy.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

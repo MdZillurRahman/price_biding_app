@@ -1,0 +1,22 @@
+#productPrice {
+  width: 85%;
+  padding: 10px 0;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: black;
+  margin-right: 5px;
+}
+
+#bid_button {
+  position: relative;
+}
+
+#bid_button:hover:after {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  content: attr(title);
+  color: red;
+}

@@ -23,3 +23,14 @@ model Session {
   accessToken String
   userId      BigInt?
 }
+
+model ProductBid {
+  id           Int    @id @default(autoincrement())
+  shop         String?
+  customerId   String?
+  customerName String?
+  productId    String?
+  productTitle String?
+  productPrice Int
+  createdAt    DateTime @default(now())
+}

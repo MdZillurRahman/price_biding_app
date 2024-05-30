@@ -1,0 +1,73 @@
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+{{ 'input_with_button.css' | asset_url | stylesheet_tag }}
+
+<product-price class="product-form__buttons">
+  <form method="POST">
+    <input id="productPrice" type="number" name="productPrice" value="{{ product.price | money_without_currency | replace : ",", "" }}" >
+    <span>
+      {{ shop.currency }}
+    </span>
+    <button id="bid_button" class="product-form__submit button button--full-width button--primary" {% unless customer %}disabled title="{{ block.settings.non-customer-title }}"{% endunless %} type="submit">
+      <span>{{ block.settings.button-text }}</span>
+    </button>
+  </form>
+</product-price>
+
+<script>
+  document.querySelector('product-price form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const productPrice = e.target.closest("form").querySelector("#productPrice").value;
+    
+    const APP_URL = "https://regarding-cigarette-tough-fancy.trycloudflare.com";
+
+    let formdata = new FormData();
+    formdata.append("customerId", "{{ customer.id }}");
+    formdata.append("customerName", "{{ customer.name }}");
+    formdata.append("productId", "{{ product.id }}");
+    formdata.append("productTitle", "{{ product.title }}");
+    formdata.append("productPrice", productPrice);
+    formdata.append("shop", "{{ shop.permanent_domain }}");
+    formdata.append("_action", "CREATE");
+    
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch(APP_URL + "/api/bid-product", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+          console.log(result);
+      })
+      .catch(error => console.log('error', error));
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Price Button",
+  "target": "section",
+  "settings": [
+    { 
+      "type": "product", 
+      "id": "product", 
+      "label": "product", 
+      "autofill": true 
+    },
+    {
+      "type": "text",
+      "id": "button-text",
+      "label": "Button Text",
+      "default": "Bid to buy"
+    },
+    {
+      "type": "text",
+      "id": "non-customer-title",
+      "label": "Title for non-customer",
+      "default": "Only customer can bid"
+    }
+  ]
+}
+{% endschema %}
