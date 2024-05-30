@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "a6ceeaead5d4e2e19b7188d55b52e0c6"
+name = "price-biding-app"
+handle = "price-biding-app"
+application_url = "https://links-edges-videos-iron.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "laptop-part-village.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_locations,read_orders,read_products,read_shipping,write_locations,write_orders,write_products,write_shipping"
+
+[auth]
+redirect_urls = [
+  "https://links-edges-videos-iron.trycloudflare.com/auth/callback",
+  "https://links-edges-videos-iron.trycloudflare.com/auth/shopify/callback",
+  "https://links-edges-videos-iron.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-04"
+
+[pos]
+embedded = false
