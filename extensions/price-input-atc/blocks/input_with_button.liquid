@@ -10,6 +10,17 @@
     </span>
     <button id="bid_button" class="product-form__submit button button--full-width button--primary" {% unless customer %}disabled title="{{ block.settings.non-customer-title }}"{% endunless %} type="submit">
       <span>{{ block.settings.button-text }}</span>
+      <div class="loading__spinner hidden">
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          class="spinner"
+          viewBox="0 0 66 66"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+        </svg>
+      </div>
     </button>
   </form>
 </product-price>
@@ -17,17 +28,20 @@
 <script>
   document.querySelector('product-price form').addEventListener('submit', (e) => {
     e.preventDefault();
+    e.target.querySelector(".loading__spinner").classList.remove("hidden");
+    e.target.querySelector("#bid_button").disabled = true;
     const productPrice = e.target.closest("form").querySelector("#productPrice").value;
     
-    const APP_URL = "https://regarding-cigarette-tough-fancy.trycloudflare.com";
+    const APP_URL = "https://together-told-corrected-separation.trycloudflare.com";
 
     let formdata = new FormData();
     formdata.append("customerId", "{{ customer.id }}");
     formdata.append("customerName", "{{ customer.name }}");
     formdata.append("productId", "{{ product.id }}");
-    formdata.append("productTitle", "{{ product.title }}");
+    formdata.append("productTitle", "{{ product.title }} for {{ customer.name }}");
     formdata.append("productPrice", productPrice);
     formdata.append("shop", "{{ shop.permanent_domain }}");
+    formdata.append("isActive", "false");
     formdata.append("_action", "CREATE");
     
     var requestOptions = {
@@ -39,7 +53,10 @@
     fetch(APP_URL + "/api/bid-product", requestOptions)
       .then(response => response.json())
       .then(result => {
-          console.log(result);
+          if (result) {
+            e.target.querySelector(".loading__spinner").classList.add("hidden");
+            e.target.querySelector("#bid_button").removeAttribute("disabled");
+          }
       })
       .catch(error => console.log('error', error));
   });

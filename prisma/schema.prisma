@@ -32,5 +32,6 @@ model ProductBid {
   productId    String?
   productTitle String?
   productPrice Int
+  isActive     Boolean?
   createdAt    DateTime @default(now())
 }
